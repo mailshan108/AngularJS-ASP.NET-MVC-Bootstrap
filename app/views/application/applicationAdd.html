@@ -1,0 +1,104 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <div class="headline"><h2>{{models.formTitle}}</h2></div>
+    </div>
+
+    <div class="col-md-12">
+        <form action="" id="applicationForm" class="sky-form">
+            <header>Please input application information</header>
+            <fieldset>
+
+                <div class="row">
+                    <section class="col col-8">
+                        <label class="label">Application name</label>
+                        <label class="input">
+                            <input type="text" name="applicationName" id="applicationName" ng-model="application.applicationName">
+                        </label>
+                    </section>
+                </div>
+            </fieldset>
+
+            <header>
+                Please select applicant
+            </header>
+            <fieldset>
+                <div class="row">
+                    <section class="col col-md-6">
+                        <label class="label">Applicant</label>
+                        <label class="input">
+                            <ui-select ng-model="applicant.selected" name="applicant" id="applicant" theme="select2" class="form-control">
+                                <ui-select-match placeholder="Select or search a applicant in the list..." value="{{$select.selected.id}}">{{$select.selected.firstName}}</ui-select-match>
+                                <ui-select-choices repeat="item in applicants | filter: $select.search">
+                                    <div ng-bind-html="item.firstName | highlight: $select.search"></div>
+                                    <small ng-bind-html="item.lastName | highlight: $select.search"></small>
+                                </ui-select-choices>
+                            </ui-select>
+                        </label>
+                    </section>
+                    <section class="col col-md-6">
+                        <label class="label">Co-applicant</label>
+                        <label class="input">
+                            <ui-select ng-model="co_applicant.selected" name="co_applicant" id="co_applicant" theme="select2" class="form-control">
+                                <ui-select-match placeholder="Select or search a applicant in the list..." value="{{$select.selected.id}}">{{$select.selected.firstName}}</ui-select-match>
+                                <ui-select-choices repeat="item in applicants | filter: $select.search">
+                                    <div ng-bind-html="item.firstName | highlight: $select.search"></div>
+                                    <small ng-bind-html="item.lastName | highlight: $select.search"></small>
+                                </ui-select-choices>
+                            </ui-select>
+                        </label>
+                    </section>
+                </div>
+            </fieldset>
+
+            <input type="hidden" id="id" name="id" ng-model="application.id" />
+            <footer>
+                <button type="button" ng-click="submitApplication()" ng-disabled="sending" class="btn-u btn-brd rounded btn-u-sea"><i class="fa fa-check"></i> {{models.btnSubmitTitle}}</button>
+                <button class="btn-u btn-brd rounded btn-u-default btn-u-sm" type="button" onclick="window.history.back();"><i class="fa fa-mail-reply"></i> Back</button>
+            </footer>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var Validation = function () {
+
+        return {
+
+            //Validation
+            initValidation: function () {
+                $("#applicationForm").validate({
+                    // Rules for form validation
+                    rules:
+                    {
+                        applicationName:
+                        {
+                            required: true
+                        }
+                    },
+
+                    // Messages for form validation
+                    messages:
+                    {
+                        applicationName:
+                        {
+                            required: 'Please enter application name'
+                        }
+                    },
+                    submitHandler: function (form) {
+                        return false;
+                    },
+
+                    // Do not change code below
+                    errorPlacement: function (error, element) {
+                        error.insertAfter(element.parent());
+                    }
+                });
+            }
+
+        };
+    }();
+
+    Validation.initValidation();
+
+</script>

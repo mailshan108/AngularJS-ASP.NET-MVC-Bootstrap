@@ -1,0 +1,285 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <div class="headline"><h2>{{models.formTitle}}</h2></div>
+    </div>
+
+    <div class="col-md-12">
+        <form action="" id="loanForm" class="sky-form">
+            <header>
+                Please select application
+                <button class="btn-u btn-brd rounded btn-u-green btn-u-sm" style="float:right;" onclick="window.location.href='/#/newapplication'"><i class="fa fa-plus"></i> Add application</button>
+            </header>
+            <fieldset>
+                <div class="row">
+                    <section class="col col-md-12">
+                        <label class="label">Application Name</label>
+                        <label class="input">
+                            <ui-select ng-model="application.selected" name="application" id="application" theme="select2" class="form-control" on-select="showApplicants($item, $model)" ng-required>
+                                <ui-select-match placeholder="Select or search a application in the list..." value="{{$select.selected.id}}">{{$select.selected.applicationName}}</ui-select-match>
+                                <ui-select-choices repeat="item in applications | filter: $select.search">
+                                    <div ng-bind-html="item.applicationName | highlight: $select.search"></div>
+                                    <small ng-bind-html="item.applicationName | highlight: $select.search"></small>
+                                </ui-select-choices>
+                            </ui-select>
+                        </label>
+                    </section>
+                </div>
+                <div class="row">
+                    <section class="col col-6">
+                        <label class="label">Applicant</label>
+
+                        <label class="input">
+                            <i class="icon-prepend fa fa-user"></i>
+                            <input type="text" name="fname" placeholder="This field is automatically filled when select an application." disabled ng-model="applicantName">
+                        </label>
+                    </section>
+                    <section class="col col-6">
+                        <label class="label">Co-applicant</label>
+                        <label class="input">
+                            <i class="icon-prepend fa fa-user"></i>
+                            <input type="text" name="fname" placeholder="This field is automatically filled when select an application." disabled ng-model="coApplicantName">
+                        </label>
+                    </section>
+                </div>
+            </fieldset>
+
+            <header>Please input loan information</header>
+            <fieldset>
+
+                <div class="row">
+                    <section class="col col-8">
+                        <label class="label">Principal</label>
+                        <label class="input">
+                            <i class="icon-append fa fa-dollar"></i>
+                            <input type="number" name="principal" id="principal" ng-model="loan.principal">
+                        </label>
+                    </section>
+                </div>
+
+                <div class="row">
+                    <section class="col col-4">
+                        <label class="label">BeginDate</label>
+                        <label class="input">
+                            <a href="javascript:(0);"><i class="icon-append fa fa-calendar" ng-click="openBeginDate($event)"></i></a>
+                            <input type="text" class="form-control" name="beginDate" id="beginDate"
+                                   datepicker-popup="{{format}}"
+                                   ng-model="loan.beginDate"
+                                   is-open="openedBeginDate"
+                                   datepicker-options="dateOptions"
+                                   close-text="Close" />
+
+                        </label>
+                    </section>
+                    <section class="col col-4">
+                        <label class="label">MaturityDate</label>
+                        <label class="input">
+                            <i class="icon-append fa fa-calendar"></i>
+                            <a href="javascript:(0);"><i class="icon-append fa fa-calendar" ng-click="openMaturityDate($event)"></i></a>
+                            <input type="text" class="form-control" name="maturityDate" id="maturityDate"
+                                   datepicker-popup="{{format}}"
+                                   ng-model="loan.maturityDate"
+                                   is-open="openedMaturityDate"
+                                   min-date="loan.beginDate"
+                                   datepicker-options="dateOptions"
+                                   close-text="Close" />
+                        </label>
+                    </section>
+                    <section class="col col-4">
+                        <label class="label">Months</label>
+                        <label class="input">
+                            <i class="icon-append fa fa-asterisk"></i>
+                            <input type="number" name="months" id="months" ng-model="loan.months">
+                        </label>
+                    </section>
+                </div>
+
+                <div class="row">
+                    <section class="col col-4">
+                        <label class="label">Rate</label>
+                        <label class="input">
+                            <i class="icon-append fa fa-asterisk"></i>
+                            <input type="number" name="rate" id="rate" ng-model="loan.rate">
+                        </label>
+                    </section>
+                    <section class="col col-4">
+                        <label class="label">EscrowTaxAmount</label>
+                        <label class="input">
+                            <i class="icon-append fa fa-asterisk"></i>
+                            <input type="number" name="escrowTaxAmount" id="escrowTaxAmount" ng-model="loan.escrowTaxAmount">
+                        </label>
+                    </section>
+                    <section class="col col-4">
+                        <label class="label">EscrowInsAmount</label>
+                        <label class="input">
+                            <i class="icon-append fa fa-asterisk"></i>
+                            <input type="number" name="escrowInsAmount" id="escrowInsAmount" ng-model="loan.escrowInsAmount">
+                        </label>
+                    </section>
+                </div>
+            </fieldset>
+            <header>
+                Payment list
+                <button class="btn-u btn-brd rounded btn-u-green btn-u-sm" style="float:right;" ng-show="editMode" ng-click="openPaymentDlg()"><i class="fa fa-plus"></i> Add Payment</button>
+            </header>
+            <fieldset>
+                <div class="panel panel-grey margin-bottom-40">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Payment List 
+                        </h3>
+                    </div>
+                    <div ng-show="emptyPayment">
+                        <div class="panel-body">
+                            <p>There still doesn't exist any payment history, after submit new loan then you can add payment.</p>
+                        </div>
+                    </div>
+                    <table class="table table-striped invoice-table" ng-hide="emptyPayment">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Principal</th>
+                                <th>Interest</th>
+                                <th>Escrow</th>
+                                <th style="max-width:180px; width:180px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="i in loan.payments">
+                                <td>{{$index + 1}}</td>
+                                <td>{{ i.payDate | date:'yyyy-MM-dd' }}</td>
+                                <td>{{ i.totalAmt }}</td>
+                                <td>{{ i.principalAmt }}</td>
+                                <td>{{ i.interestAmt }}</td>
+                                <td>{{ i.escrowAmt }}</td>
+                                <td>
+                                    <a class="btn-u btn-u-blue" ><i class="fa fa-edit"></i> Edit</a>&nbsp;&nbsp;
+                                    <a class="btn-u btn-u-default" 
+                                       ng-bootbox-confirm="Are you sure you want to delete this payment?"
+                                       ng-bootbox-confirm-action="deletePayment(i)"
+                                       ng-bootbox-confirm-action-cancel="">
+                                        <i class="fa fa-trash-o"></i>Delete</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </fieldset>
+
+            <input type="hidden" id="id" name="id" ng-model="loan.id" />
+            <footer>
+                <button type="button" ladda="submitting" data-style="expand-right" ng-click="submitLoan()" ng-disabled="sending" class="btn-u btn-brd rounded btn-u-sea"><i class="fa fa-check"></i> {{models.btnSubmitTitle}}</button>
+                <button class="btn-u btn-brd rounded btn-u-default btn-u-sm" type="button" onclick="window.history.back();"><i class="fa fa-mail-reply"></i> Back</button>
+            </footer>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var Validation = function () {
+
+        return {
+
+            //Validation
+            initValidation: function () {
+                $("#loanForm").validate({
+                    // Rules for form validation
+                    rules:
+                    {
+                        application:
+                        {
+                            required: true,
+                        },
+                        principal:
+                        {
+                            required: true,
+                            number: true
+                        },
+                        beginDate:
+                        {
+                            required: true,
+                            //date: true
+                        },
+                        maturityDate:
+                        {
+                            required: true,
+                            date: true
+                        },
+                        months:
+                        {
+                            required: true,
+                            number: true
+                        },
+                        rate:
+                        {
+                            required: true,
+                            number: true
+                        },
+                        escrowTaxAmount:
+                        {
+                            required: true,
+                            number: true
+                        },
+                        escrowInsAmount:
+                        {
+                            required: true,
+                            number: true
+                        }
+                    },
+
+                    // Messages for form validation
+                    messages:
+                    {
+                        application:
+                        {
+                            required: 'Please select application'
+                        },
+                        principal:
+                        {
+                            required: 'Please enter something'
+                        },
+                        beginDate:
+                        {
+                            required: 'Please enter some date'
+                        },
+                        maturityDate:
+                        {
+                            required: 'Please enter some date'
+                        },
+                        months:
+                        {
+                            required: 'Please enter some number'
+                        },
+                        rate:
+                        {
+                            required: 'Please enter some number'
+                        },
+                        escrowTaxAmount:
+                        {
+                            required: 'Please enter some number'
+                        },
+                        escrowInsAmount:
+                        {
+                            required: 'Please enter some number'
+                        }
+                    },
+                    submitHandler: function (form) {
+                        return false;
+                    },
+
+                    // Do not change code below
+                    errorPlacement: function (error, element) {
+                        error.insertAfter(element.parent());
+                    }
+                });
+            }
+
+        };
+    }();
+
+    Validation.initValidation();
+
+</script>

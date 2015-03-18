@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+    @*<ul class="nav navbar-nav navbar-right">*@
+        <li class="topbar-devider"></li>
+        <li>@Html.ActionLink(User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+        </li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+    @*</ul>*@
+    }
+}
+else
+{
+    @*<ul class="nav navbar-nav navbar-right">*@
+        <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Logout</a></li>
+        <li data-ng-hide="authentication.isAuth"> <a href="#/signup">Register</a></li>
+        <li data-ng-hide="authentication.isAuth" class="topbar-devider"></li>
+        <li data-ng-hide="authentication.isAuth"> <a href="#/login">Log in</a></li>
+
+    @*</ul>*@
+}

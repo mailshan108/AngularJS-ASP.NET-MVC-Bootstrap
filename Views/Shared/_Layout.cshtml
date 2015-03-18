@@ -1,0 +1,474 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" data-ng-app="@ViewBag.InitModule">
+<!--<![endif]-->
+<head>
+    <title>@ViewBag.Title - BlueStylus Financial</title>
+    <!--TEST-->
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" href="~/Content/Template/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/Template/plugins/angular-toastr/angular-toastr.min.css">
+    <link rel="stylesheet" href="~/Content/Template/css/style.css">
+    <link rel="stylesheet" href="~/Content/Template/css/loading-bar.css">
+    <link rel="stylesheet" href="~/Content/Template/css/plugins/animate.css">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="~/Content/Template/plugins/line-icons/line-icons.css">
+    <link rel="stylesheet" href="~/Content/Template/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Content/Template/plugins/ladda-buttons/css/custom-lada-btn.css">
+    <link rel="stylesheet" href="~/Content/Template/plugins/flexslider/flexslider.css">
+    <link rel="stylesheet" href="~/Content/Template/plugins/parallax-slider/css/parallax-slider.css">
+    <link rel="stylesheet" href="~/Content/Template/plugins/sky-forms/version-2.0.1/css/custom-sky-forms.css">
+
+    <link rel="stylesheet" href="~/Content/Template/plugins/angular-select/select.min.css">
+
+    <!-- CSS Theme -->
+    <link rel="stylesheet" href="~/Content/Template/css/themes/default.css" id="style_color">
+
+    <!-- CSS Customization -->
+    <link rel="stylesheet" href="~/Content/Template/css/custom.css">
+
+    @RenderSection("styles", required: false)
+</head>
+
+<body>
+    <!--=== Style Switcher ===-->
+    <i class="style-switcher-btn fa fa-cogs hidden-xs"></i>
+    <div class="style-switcher animated fadeInRight">
+        <div class="theme-close"><i class="icon-close"></i></div>
+        <div class="theme-heading">Theme Colors</div>
+        <ul class="list-unstyled">
+            <li class="theme-default theme-active" data-style="default" data-header="light"></li>
+            <li class="theme-blue" data-style="blue" data-header="light"></li>
+            <li class="theme-orange" data-style="orange" data-header="light"></li>
+            <li class="theme-red" data-style="red" data-header="light"></li>
+            <li class="theme-light last" data-style="light" data-header="light"></li>
+
+            <li class="theme-purple" data-style="purple" data-header="light"></li>
+            <li class="theme-aqua" data-style="aqua" data-header="light"></li>
+            <li class="theme-brown" data-style="brown" data-header="light"></li>
+            <li class="theme-dark-blue" data-style="dark-blue" data-header="light"></li>
+            <li class="theme-light-green last" data-style="light-green" data-header="light"></li>
+        </ul>
+        <div style="margin-bottom:18px;"></div>
+        <div class="theme-heading">Layouts</div>
+        <div class="text-center">
+            <a href="javascript:void(0);" class="btn-u btn-u-green btn-block active-switcher-btn wide-layout-btn">Wide</a>
+            <a href="javascript:void(0);" class="btn-u btn-u-green btn-block boxed-layout-btn">Boxed</a>
+        </div>
+    </div><!--/style-switcher-->
+    <!--=== End Style Switcher ===-->
+
+    <div class="wrapper">
+        <!--=== Header ===-->
+        <div class="header" data-ng-controller="indexController">
+            <!-- Topbar -->
+            <div class="topbar">
+                <div class="container">
+                    <!-- Topbar Navigation -->
+                    <ul class="loginbar pull-right">
+                        <li>
+                            <i class="fa fa-globe"></i>
+                            <a>Languages</a>
+                            <ul class="lenguages">
+                                <li class="active">
+                                    <a href="#">English <i class="fa fa-check"></i></a>
+                                </li>
+                                <li><a href="#">Spanish</a></li>
+                                <li><a href="#">Russian</a></li>
+                                <li><a href="#">German</a></li>
+                            </ul>
+                        </li>
+                        <li class="topbar-devider"></li>
+                        <li><a href="page_faq.html">Help</a></li>
+                        <li class="topbar-devider"></li>
+                        @*<li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>*@
+                        <li>@Html.Partial("_LoginPartial")</li>
+                    </ul>
+                    <!-- End Topbar Navigation -->
+                </div>
+            </div>
+            <!-- End Topbar -->
+            <!-- Navbar -->
+            <div class="navbar navbar-default" role="navigation">
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="fa fa-bars"></span>
+                        </button>
+                        <a class="navbar-brand" href="/">
+                            <img id="logo-header" src="~/Content/Template/img/logo1-default.png" alt="Logo">
+                        </a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse navbar-responsive-collapse">
+                        <ul class="nav navbar-nav">
+                            <!-- Home -->
+                            <li class="dropdown active">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                                    Home
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="active"><a href="/#/home">Default Page</a></li>
+                                    @*<li><a target="_blank" href="One-Page/index.html">Option 2: One Page Template</a></li>
+                                    <li><a href="page_home1.html">Option 3: Layer Slider</a></li>
+                                    <li><a href="page_home2.html">Option 4: Revolution Slider</a></li>
+                                    <li><a href="page_home3.html">Option 5: Amazing Content</a></li>
+                                    <li><a href="page_home4.html">Option 6: Home Sidebar</a></li>
+                                    <li><a href="page_home5.html">Option 7: Home Flatty</a></li>
+                                    <li><a href="page_home6.html">Option 8: Home Magazine</a></li>
+                                    <li><a href="page_home7.html">Option 9: Home Portfolio</a></li>
+                                    <li><a href="page_home8.html">Option 10: Home Discover</a></li>
+                                    <li><a href="page_jobs.html">Option 11: Home Jobs</a></li>
+                                    <li><a href="page_home9.html">Option 12: Home Boxed</a></li>
+                                    <li><a href="page_home11.html">Option 13: Home Boxed Image</a></li>
+                                    <li><a href="page_home10.html">Option 14: Home Fixed Menu</a></li>*@
+                                </ul>
+                            </li>
+                            <!-- End Home -->
+                            <!-- Pages -->
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                                    Pages
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/#/inquirylist">Inquiry</a></li>
+                                    <li class="dropdown-submenu">
+                                        <a href="javascript:void(0);">Loan</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="/#/applicationlist">Application List</a></li>
+                                            <li><a href="/#/loanlist">Loan List</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="/#/applicantlist">Applicants</a></li>
+                                </ul>
+                            </li>
+                            <!-- End Pages -->
+                            <!-- Features -->
+
+                            @*<li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                                    Features
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-submenu">
+                                        <a href="javascript:void(0);">Typography</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="feature_typo_general.html"><i class="fa fa-sort-alpha-asc"></i> General Typography</a></li>
+                                            <li><a href="feature_typo_headings.html"><i class="fa fa-magic"></i> Headings Options</a></li>
+                                            <li><a href="feature_typo_dividers.html"><i class="fa fa-ellipsis-h"></i> Deviders</a></li>
+                                            <li><a href="feature_typo_blockquote.html"><i class="fa fa-quote-left"></i> Blockquote Blocks</a></li>
+                                            <li><a href="feature_typo_boxshadows.html"><i class="fa fa-asterisk"></i> Box Shadows</a></li>
+                                            <li><a href="feature_typo_testimonials.html"><i class="fa fa-comments"></i> Testimonials</a></li>
+                                            <li><a href="feature_typo_tagline_boxes.html"><i class="fa fa-tasks"></i> Tagline Boxes</a></li>
+                                            <li><a href="feature_typo_grid.html"><i class="fa fa-align-justify"></i> Grid Layouts</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown-submenu">
+                                        <a href="javascript:void(0);">Buttons UI</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="feature_btn_general.html"><i class="fa fa-flask"></i> General Buttons</a></li>
+                                            <li><a href="feature_btn_brands.html"><i class="fa fa-html5"></i> Brand &amp; Social Buttons</a></li>
+                                            <li><a href="feature_btn_effects.html"><i class="fa fa-bolt"></i> Loading &amp; Hover Effects</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown-submenu">
+                                        <a href="javascript:void(0);">Icons</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="feature_icon_general.html"><i class="fa fa-chevron-circle-right"></i> General Icons</a></li>
+                                            <li><a href="feature_icon_fa.html"><i class="fa fa-chevron-circle-right"></i> Font Awesome Icons</a></li>
+                                            <li><a href="feature_icon_line.html"><i class="fa fa-chevron-circle-right"></i> Line Icons</a></li>
+                                            <li><a href="feature_icon_glyph.html"><i class="fa fa-chevron-circle-right"></i> Glyphicons Icons</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown-submenu">
+                                        <a href="javascript:void(0);">Content Boxes</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="feature_box_general.html"><i class="fa fa-cog"></i> General Content Boxes</a></li>
+                                            <li><a href="feature_box_colored.html"><i class="fa fa-align-center"></i> Colored Boxes</a></li>
+                                            <li><a href="feature_box_funny.html"><i class="fa fa-bars"></i> Funny Boxes</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="feature_thumbails.html">Thumbnails</a></li>
+                                    <li class="dropdown-submenu">
+                                        <a href="javascript:void(0);">Components</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="feature_compo_messages.html"><i class="fa fa-comment"></i> Alerts &amp; Messages</a></li>
+                                            <li><a href="feature_compo_labels.html"><i class="fa fa-tags"></i> Labels &amp; Badges</a></li>
+                                            <li><a href="feature_compo_progress_bars.html"><i class="fa fa-align-left"></i> Progress Bars</a></li>
+                                            <li><a href="feature_compo_media.html"><i class="fa fa-volume-down"></i> Audio/Videos &amp; Images</a></li>
+                                            <li><a href="feature_compo_panels.html"><i class="fa fa-columns"></i> Panels</a></li>
+                                            <li><a href="feature_compo_pagination.html"><i class="fa fa-arrows-h"></i> Paginations</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="feature_accordion_and_tabs.html">Accordion &amp; Tabs</a></li>
+                                    <li class="dropdown-submenu">
+                                        <a href="javascript:void(0);">Timeline</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="feature_timeline1.html"><i class="fa fa-dot-circle-o"></i> Timeline Option 1</a></li>
+                                            <li><a href="feature_timeline2.html"><i class="fa fa-dot-circle-o"></i> Timeline Option 2</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="feature_carousels.html">Carousel Examples</a></li>
+                                    <li class="dropdown-submenu">
+                                        <a href="javascript:void(0);">Forms</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="feature_form_general.html"><i class="fa fa-bars"></i> Common Bootstrap Forms</a></li>
+                                            <li><a href="feature_form_general1.html"><i class="fa fa-bars"></i> General Unify Forms</a></li>
+                                            <li><a href="feature_form_advanced.html"><i class="fa fa-bars"></i> Advanced Forms</a></li>
+                                            <li><a href="feature_form_layouts.html"><i class="fa fa-bars"></i> Form Layouts</a></li>
+                                            <li><a href="feature_form_layouts_advanced.html"><i class="fa fa-bars"></i> Advanced Layout Forms</a></li>
+                                            <li><a href="feature_form_states.html"><i class="fa fa-bars"></i> Form States</a></li>
+                                            <li><a href="feature_form_sliders.html"><i class="fa fa-bars"></i> Form Sliders</a></li>
+                                            <li><a href="feature_form_modals.html"><i class="fa fa-bars"></i> Modals</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="feature_table_general.html">Tables</a></li>
+                                    <li class="dropdown-submenu">
+                                        <a href="javascript:void(0);">Maps</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="feature_maps_google.html"><i class="fa fa-map-marker"></i> Google Maps</a></li>
+                                            <li><a href="feature_maps_vector.html"><i class="fa fa-align-center"></i> Vector Maps</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="feature_compo_charts.html">Charts &amp; Countdowns</a></li>
+                                    <li class="dropdown-submenu">
+                                        <a href="javascript:void(0);">Sub Level 1</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="index.hmtl">Sub Level 2</a></li>
+                                            <li class="dropdown-submenu">
+                                                <a href="javascript:void(0);">Sub Level 2</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="index.hmtl">Sub Level 3</a></li>
+                                                    <li><a href="index.hmtl">Sub Level 3</a></li>
+                                                    <li><a href="index.hmtl">Sub Level 3</a></li>
+                                                    <li><a href="index.hmtl">Sub Level 3</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="index.hmtl">Sub Level 2</a></li>
+                                            <li class="dropdown-submenu">
+                                                <a href="javascript:void(0);">Sub Level 2</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="index.hmtl">Sub Level 3</a></li>
+                                                    <li><a href="index.hmtl">Sub Level 3</a></li>
+                                                    <li><a href="index.hmtl">Sub Level 3</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                                    Portfolio
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="portfolio_text_blocks.html">Portfolio Text Blocks</a></li>
+                                    <li><a href="portfolio_2_column.html">Portfolio 2 Columns</a></li>
+                                    <li><a href="portfolio_3_column.html">Portfolio 3 Columns</a></li>
+                                    <li><a href="portfolio_4_column.html">Portfolio 4 Columns</a></li>
+                                    <li><a href="portfolio_item.html">Portfolio Item Option 1</a></li>
+                                    <li><a href="portfolio_item1.html">Portfolio Item Option 2</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                                    Blog
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="blog_page.html">Blog Page</a></li>
+                                    <li><a href="blog_large.html">Blog Large</a></li>
+                                    <li><a href="blog_medium.html">Blog Medium</a></li>
+                                    <li><a href="blog_full_width.html">Blog Full Width</a></li>
+                                    <li><a href="blog_timeline.html">Blog Timeline</a></li>
+                                    <li><a href="blog_masonry_3col.html">Masonry Grid Blog</a></li>
+                                    <li><a href="blog_right_sidebar.html">Blog Right Sidebar</a></li>
+                                    <li><a href="blog_left_sidebar.html">Blog Left Sidebar</a></li>
+                                    <li><a href="blog_item_option1.html">Blog Item Option 1</a></li>
+                                    <li><a href="blog_item_option2.html">Blog Item Option 2</a></li>
+                                </ul>
+                            </li>*@
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                                    Contacts
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/#/newinquiry">Loan Request</a></li>
+                                    @*<li><a href="page_contact2.html">Contacts Option 1</a></li>
+                                    <li><a href="page_contact3.html">Contacts Option 2</a></li>*@
+                                </ul>
+                            </li>
+                            @*<li>
+                                <i class="search fa fa-search search-btn"></i>
+                                <div class="search-open">
+                                    <div class="input-group animated fadeInDown">
+                                        <input type="text" class="form-control" placeholder="Search">
+                                        <span class="input-group-btn">
+                                            <button class="btn-u" type="button">Go</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>*@
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- End Navbar -->
+        </div>
+        <!--=== End Header ===-->
+        <!--=== Content Part ===-->
+        <div class="container content">
+            @RenderBody()
+        </div><!--/container-->
+        <!-- End Content Part -->
+        <!--=== Footer ===-->
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 md-margin-bottom-40">
+                        <!-- About -->
+                        <div class="headline"><h2>About</h2></div>
+                        <p class="margin-bottom-25 md-margin-bottom-40">Unify is an incredibly beautiful responsive Bootstrap Template for corporate and creative professionals.</p>
+                        <!-- End About -->
+                        <!-- Monthly Newsletter -->
+                        <div class="headline"><h2>Monthly Newsletter</h2></div>
+                        <p>Subscribe to our newsletter and stay up to date with the latest news and deals!</p>
+                        <form class="footer-subsribe">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Email Address">
+                                <span class="input-group-btn">
+                                    <button class="btn-u" type="button">Subscribe</button>
+                                </span>
+                            </div>
+                        </form>
+                        <!-- End Monthly Newsletter -->
+                    </div><!--/col-md-4-->
+
+                    <div class="col-md-4 md-margin-bottom-40">
+                        <!-- Recent Blogs -->
+                        <div class="posts">
+                            <div class="headline"><h2>Recent Blog Entries</h2></div>
+                            <dl class="dl-horizontal">
+                                <dt><a href="#"><img src="~/Content/Template/img/sliders/elastislide/6.jpg" alt=""></a></dt>
+                                <dd>
+                                    <p><a href="#">Anim moon officia Unify is an incredibly beautiful responsive Bootstrap Template</a></p>
+                                </dd>
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <dt><a href="#"><img src="~/Content/Template/img/sliders/elastislide/10.jpg" alt=""></a></dt>
+                                <dd>
+                                    <p><a href="#">Anim moon officia Unify is an incredibly beautiful responsive Bootstrap Template</a></p>
+                                </dd>
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <dt><a href="#"><img src="~/Content/Template/img/sliders/elastislide/11.jpg" alt=""></a></dt>
+                                <dd>
+                                    <p><a href="#">Anim moon officia Unify is an incredibly beautiful responsive Bootstrap Template</a></p>
+                                </dd>
+                            </dl>
+                        </div>
+                        <!-- End Recent Blogs -->
+                    </div><!--/col-md-4-->
+
+                    <div class="col-md-4">
+                        <!-- Contact Us -->
+                        <div class="headline"><h2>Contact Us</h2></div>
+                        <address class="md-margin-bottom-40">
+                            25, Lorem Lis Street, Orange <br />
+                            California, US <br />
+                            Phone: 800 123 3456 <br />
+                            Fax: 800 123 3456 <br />
+                            Email: <a href="mailto:info@anybiz.com" class="">info@anybiz.com</a>
+                        </address>
+                        <!-- End Contact Us -->
+                        <!-- Social Links -->
+                        <div class="headline"><h2>Stay Connected</h2></div>
+                        <ul class="social-icons">
+                            <li><a href="#" data-original-title="Feed" class="social_rss"></a></li>
+                            <li><a href="#" data-original-title="Facebook" class="social_facebook"></a></li>
+                            <li><a href="#" data-original-title="Twitter" class="social_twitter"></a></li>
+                            <li><a href="#" data-original-title="Goole Plus" class="social_googleplus"></a></li>
+                            <li><a href="#" data-original-title="Pinterest" class="social_pintrest"></a></li>
+                            <li><a href="#" data-original-title="Linkedin" class="social_linkedin"></a></li>
+                            <li><a href="#" data-original-title="Vimeo" class="social_vimeo"></a></li>
+                        </ul>
+                        <!-- End Social Links -->
+                    </div><!--/col-md-4-->
+                </div>
+            </div>
+        </div><!--/footer-->
+        <!--=== End Footer ===-->
+        <!--=== Copyright ===-->
+        <div class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>
+                            2014 &copy; Unify. ALL Rights Reserved.
+                            <a target="_blank" href="https://twitter.com/htmlstream">Htmlstream</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="index.html">
+                            <img class="pull-right" id="logo-footer" src="~/Content/Template/img/logo2-default.png" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div><!--/copyright-->
+        <!--=== End Copyright ===-->
+    </div><!--/wrapper-->
+    <!-- JS Global Compulsory -->
+    <script type="text/javascript" src="~/Content/Template/plugins/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Content/Template/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Content/Template/plugins/bootbox/bootbox.min.js"></script>
+
+    <!-- JS Implementing Plugins -->
+    <script type="text/javascript" src="~/Content/Template/plugins/back-to-top.js"></script>
+    <script type="text/javascript" src="~/Content/Template/plugins/ladda-buttons/js/spin.min.js"></script>
+    <script type="text/javascript" src="~/Content/Template/plugins/ladda-buttons/js/ladda.min.js"></script>
+
+    <script type="text/javascript" src="~/Content/Template/plugins/flexslider/jquery.flexslider-min.js"></script>
+    <script type="text/javascript" src="~/Content/Template/plugins/parallax-slider/js/modernizr.js"></script>
+    <script type="text/javascript" src="~/Content/Template/plugins/parallax-slider/js/jquery.cslider.js"></script>
+    <!--<script type="text/javascript" src="~/Content/Template/plugins/sky-forms/version-2.0.1/js/jquery-ui.min.js"></script>-->
+    <script type="text/javascript" src="~/Content/Template/plugins/sky-forms/version-2.0.1/js/jquery.validate.min.js"></script>
+
+    <!-- JS Page Level -->
+    <!--
+    <script type="text/javascript" src="~/scripts/app.js"></script>
+    <script type="text/javascript" src="~/scripts/pages/index.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            App.init();
+            App.initSliders();
+            Index.initParallaxSlider();
+        });
+    </script>
+    -->
+    <!--[if lt IE 9]>
+        <script src="~/Content/Template/plugins/respond.js"></script>
+        <script src="~/Content/Template/plugins/html5shiv.js"></script>
+    <![endif]-->
+    @Scripts.Render("~/bundles/BSFAngular")
+
+    @RenderSection("scripts", required: false)
+
+
+</body>
+</html>	

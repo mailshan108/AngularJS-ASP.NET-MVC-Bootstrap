@@ -1,0 +1,65 @@
+﻿@model IEnumerable<BSFinancial.Data.Company>
+@{
+    ViewBag.Title = "Home Page";
+    ViewBag.InitModule = "BSFinancialApp";
+}
+
+@section styles {
+    <link rel="stylesheet" href="~/content/Template/plugins/datatables/media/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="~/content/Template/plugins/datatables-responsive/css/dataTables.responsive.css">
+    <link rel="stylesheet" href="~/content/Template/plugins/angular-datatables/datatables.bootstrap.min.css">
+
+    <!--
+      Select2 theme
+      Bootstrap 3 theme from https://github.com/fk/select2-bootstrap-css
+    -->
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.css">
+    <link rel="stylesheet" href="http://fk.github.io/select2-bootstrap-css/css/select2-bootstrap.css">
+
+}
+
+@section Scripts {
+
+    <!-- For Angular Datatable -->
+    <script src="~/Content/Template/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/Template/plugins/datatables-responsive/js/dataTables.responsive.js"></script>
+
+    <script src="~/Content/Template/plugins/angular-datatables/angular-datatables.min.js"></script>
+    <script src="~/Content/Template/plugins/angular-datatables/angular-datatables.util.js"></script>
+    <script src="~/Content/Template/plugins/angular-datatables/angular-datatables.options.js"></script>
+    <script src="~/Content/Template/plugins/angular-datatables/angular-datatables.factory.js"></script>
+    <script src="~/Content/Template/plugins/angular-datatables/angular-datatables.renderer.js"></script>
+    <script src="~/Content/Template/plugins/angular-datatables/angular-datatables.bootstrap.options.js"></script>
+    <script src="~/Content/Template/plugins/angular-datatables/angular-datatables.bootstrap.js"></script>
+    <script src="~/Content/Template/plugins/angular-datatables/angular-datatables.directive.js"></script>
+
+    <!-- For Angular Select2 -->
+    <script src="~/Content/Template/plugins/angular-select/select.min.js"></script>
+
+    <!-- Load app main script -->
+    <script src="app/app.js?v=2"></script>
+    <!-- Load services -->
+    <script src="app/services/authInterceptorService.js?v=2"></script>
+    <script src="app/services/authService.js?v=2"></script>
+    <script src="app/services/tokensManagerService.js?v=2"></script>
+    <script src="app/services/inquiryService.js?v=2"></script>
+    <script src="app/services/loanService.js?v=2"></script>
+    <script src="app/services/applicantService.js?v=2"></script>
+    <script src="app/services/applicationService.js?v=2"></script>
+    <script src="app/services/notificationService.js?v=2"></script>
+
+    <!-- Load controllers -->
+    <script src="app/controllers/indexController.js?v=2"></script>
+    <script src="app/controllers/homeController.js?v=2"></script>
+    <script src="app/controllers/loginController.js?v=2"></script>
+    <script src="app/controllers/signupController.js?v=2"></script>
+    <script src="app/controllers/refreshController.js?v=2"></script>
+    <script src="app/controllers/tokensManagerController.js?v=2"></script>
+    <script src="app/controllers/associateController.js?v=2"></script>
+    <script src="app/controllers/inquiryController.js?v=2"></script>
+    <script src="app/controllers/loanController.js?v=2"></script>
+    <script src="app/controllers/applicantController.js?v=2"></script>
+    <script src="app/controllers/applicationController.js?v=2"></script>
+}
+
+<div ng-view class="animated fadeInDown" > </div>
